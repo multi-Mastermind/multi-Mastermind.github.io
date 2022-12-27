@@ -1,0 +1,179 @@
+body {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.gameboard {
+    background-color: black;
+    border: 5px solid black;
+    display: flex;
+    height: calc(var(--rowcount) * 60px);
+    /* grid-template-rows: repeat(12, 2fr); */
+    width: calc(var(--pegcount) * 100px); 
+    grid-template-columns: repeat(4, 2fr) 4fr repeat(4, 1fr) 2fr;
+    position: relative;
+    z-index: 0;
+    --pegcount: 4;
+    --rowcount: 12;
+}
+/* 
+.board {
+    display: grid;
+    background-color: black;
+    height: 100%;
+    width: 75%;
+    float: left;
+    z-index: 1;
+} */
+
+
+
+#instructions {
+    width: 200px;
+    height: 450px;
+    border: 5px solid black;
+    margin: 0 auto;
+    margin-top: 10px;
+    font-family: sans-serif;
+    font-size: 30px;
+    text-align: center;
+    color: rgb(0, 0, 0);
+    background-color: lightgray;
+    opacity: 0.5;    
+    z-index: 0;
+}
+
+@media only screen and (max-width: 500px){
+    #instructions{
+        width: 90%;
+        font-size: 1.5em;
+        height: auto;
+        align-items: flex-end;
+    }
+    .gameboard{
+        clear:left;
+        position: relative;
+    }
+}
+
+#pegs {
+    display: grid;
+    grid-template-columns: repeat(var(--pegcount), 60px);
+    grid-template-rows: repeat(var(--rowcount), 60px);
+    /* grid-area: 1/1/var(--rowcount)+1/5; */
+}
+
+.pegs {
+    background-color: white;
+    height: 50px;
+    width: 50px;
+    margin: 5px;
+    border-radius: 50%;
+    z-index: 2;
+}
+
+/* .pinboard {
+    display: grid;
+    background-color: black;
+    height: 100%;
+    width: 25%;
+    float: right;
+    z-index: 1;
+} */
+
+
+#pins {
+    display: grid;
+    grid-template-columns: repeat(var(--pegcount), 20px);
+    grid-template-rows: repeat(20px auto);
+    /* grid-area: 1/6/var(--rowcount)+1/10; */
+    float: right;
+    margin: 10px;
+
+}
+
+.pins {
+    background-color: white;
+    height: 20px;
+    width: 20px;
+    margin: 10px;
+    float: right;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.correctpin {
+    background-color: green;
+    height: 20px;
+    width: 20px;
+    margin: 10px;
+    float: right;
+    border-radius: 50%;
+    z-index: 2;
+}
+
+/* oud idee*/
+/* .colorOptions {
+    display: grid;
+    grid-template-columns: repeat(2, 100px);
+    grid-template-rows: repeat(3, 100px);
+    width: 200px;
+    height: 300px;
+    border: 5px solid black;
+    margin: 0 auto;
+    margin-top: 10px; 
+} */
+
+/* .blue {
+    background-color: blue;
+    z-index: 1;
+}
+
+.red {
+    background-color: red;
+    z-index: 1;
+}
+
+.yellow {
+    background-color: yellow;
+    z-index: 1;
+}
+
+.green {
+    background-color: green;
+    z-index: 1;
+}
+
+.magenta {
+    background-color: magenta;
+    z-index: 1;
+}
+
+.orange {
+    background-color: orange;
+    z-index: 1;
+} */
+
+/* oud idee te moeilijk om te implementeren */
+/* .currentColor {
+    width: 200px;
+    height: 50px;
+    border: 5px solid black;
+    margin: 0 auto;
+    margin-top: 10px;
+    background-color: white;
+} */
+
+.submit {
+    width: 200px;
+    height: 50px;
+    border: 5px solid black;
+    margin: 0 auto;
+    margin-top: 50px;
+    font-family: sans-serif;
+    font-size: 50px;
+    text-align: center;
+    color:black;
+    background-color: lightgray;
+    opacity: 0.5;
+}
