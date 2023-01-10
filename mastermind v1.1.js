@@ -5,8 +5,13 @@ var currentBoardPegs = ["peg4", "peg5", "peg6", "peg7"];
 var currentBoardPins = ["pin4", "pin5", "pin6", "pin7"];
 // totaal aantal rows
 var currentrow = 12;
-// aantal pegs in een row
-let pegCount = 4;
+// aantal pegs in een row bepaald door user
+var pegCount = Number.parseInt(document.querySelector("#pegNumber").value, 10);
+// update heeft meer werk nodig
+// pegCount.addEventListener("change", event =>{
+//     var pegCount = Number.parseInt(document.querySelector("#pegNumber").value, 10)
+// });
+// console.log(pegCount);
 // console.log(document.querySelector(".gameboard"));
 let gameboardstyles = window.getComputedStyle(document.querySelector(".gameboard"));
 document.querySelector(".gameboard").style.setProperty('--pegcount', pegCount);
@@ -29,15 +34,15 @@ const currentpegs = "currentpegs";
 const correctpin = document.querySelector('.correctpin');
 
 function generateBoard(ppname) {
-        for (let i = 0; i < totalpegs; i++) {
-            let pp = document.createElement("div");
-            pp.setAttribute("class", ppname + i);
-            pp.classList.add(ppname);
-            document.getElementById(ppname).appendChild(pp);
-            currentBoardPins.push(pp);
-        };
-        // console.warn("generate board done");
+    for (let i = 0; i < totalpegs; i++) {
+        let pp = document.createElement("div");
+        pp.setAttribute("class", ppname + i);
+        pp.classList.add(ppname);
+        document.getElementById(ppname).appendChild(pp);
+        currentBoardPins.push(pp);
     };
+    // console.warn("generate board done");
+};
 
 generateBoard(pegs.id);
 generateBoard(pins.id);

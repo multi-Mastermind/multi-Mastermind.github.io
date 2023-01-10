@@ -26,7 +26,10 @@ body {
     z-index: 1;
 } */
 
-
+#pegNumber{
+    width: 3em;
+    height: 1.5em;
+}
 
 #instructions {
     width: 200px;
