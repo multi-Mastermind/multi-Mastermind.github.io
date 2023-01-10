@@ -19,14 +19,6 @@ const totalpegs = pegCount * currentrow;
 const possibleColors = ["red", "green", "blue", "yellow", "magenta", "orange",];
 const totalColors = possibleColors.length;
 var hasWon = false;
-// var colors = {
-//     "rgb(255, 0, 0)": "red",
-//     "rgb(0, 255, 0)": "green",
-//     "rgb(0, 0, 255)": "blue",
-//     "rgb(255, 255, 0)": "yellow",
-//     "rgb(255, 0, 255)": "magenta",
-//     "rgb(255,165,0)": "orange",
-// };
 var Pegindex = 0;
 var playerWins = false;
 const currentpins = "currentpins";
@@ -34,15 +26,18 @@ const currentpegs = "currentpegs";
 const correctpin = document.querySelector('.correctpin');
 
 function generateBoard(ppname) {
-    for (let i = 0; i < totalpegs; i++) {
-        let pp = document.createElement("div");
-        pp.setAttribute("class", ppname + i);
-        pp.classList.add(ppname);
-        document.getElementById(ppname).appendChild(pp);
-        currentBoardPins.push(pp);
+        for (let i = 0; i < totalpegs; i++) {
+            let pp = document.createElement("div");
+            pp.setAttribute("class", ppname + i);
+            pp.classList.add(ppname);
+            document.getElementById(ppname).appendChild(pp);
+            currentBoardPins.push(pp);
+        };
+        // console.warn("generate board done");
     };
-    // console.warn("generate board done");
-};
+
+
+
 
 generateBoard(pegs.id);
 generateBoard(pins.id);
@@ -74,22 +69,31 @@ document.addEventListener("click", event => {
     let target = event.target;
     let isValidPeg = target.classList.contains(currentpegs);
     if (isValidPeg && playerWins === false) {
-        // target.classList.remove("red", "green", "blue", "yellow", "magenta", "orange");
-        // let color = possibleColors[++Pegindex % totalColors];
-        // target.secretcolor = color;
-        // target.classList.add(color);
-        // console.log(target.secretcolor);
         target.style.background = possibleColors[++Pegindex % totalColors];
     };
 });
 
 // functioneren van submit knop
 document.querySelector(".submit").addEventListener("click", event => {
-    changePins();
-    checkWin();
-    changeRows();
-    // checkLoss();
-    console.log("code submitted");
+    let currentPegs = document.querySelectorAll(".currentpegs");
+    currentPegs.forEach(element => {
+        if(element.style.backgroundColor != "white"){
+            element.classList.add(true)
+        };
+        // stop de backgroundColor in IF statement... 
+        // als deze wit is niet
+        
+    });
+    if (currentPegs[0].classList.contains(true) && currentPegs[1].classList.contains(true) && currentPegs[2].classList.contains(true) && currentPegs[3].classList.contains(true)) {
+        changePins();
+        checkWin();
+        changeRows();
+        // checkLoss();
+        console.log("code submitted");
+    }
+    else {
+        alert("enter code to submit");
+    }
 });
 
 // doorgaan naar nieuwe rij
@@ -145,6 +149,7 @@ function changePins(pinnr) {
         if (checkPeg(i) === true) {
             let pin = currentBoardPins[i];
             pin.classList.add('correctpin');
+            pin.style.backgroundColor = "green";
             console.log("peg" + i + " is correct");
         };
     };

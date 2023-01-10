@@ -32,8 +32,8 @@ body {
 }
 
 #instructions {
-    width: 200px;
-    height: 450px;
+    width: 300px;
+    height: 520px;
     border: 5px solid black;
     margin: 0 auto;
     margin-top: 10px;
@@ -58,6 +58,8 @@ body {
         position: relative;
     }
 }
+
+
 
 #pegs {
     display: grid;
@@ -115,6 +117,47 @@ body {
     z-index: 2;
 }
 
+.submit {
+    width: 200px;
+    height: 50px;
+    border: 5px solid black;
+    margin: 0 auto;
+    margin-top: 50px;
+    font-family: sans-serif;
+    font-size: 50px;
+    text-align: center;
+    color:black;
+    background-color: lightgray;
+    opacity: 0.5;
+}
+
+@media only screen and (max-height: 900px){
+    .gameboard{
+        height: calc(var(--rowcount)*50px);
+    }
+
+    #pegs{
+        grid-template-columns: repeat(var(--pegcount), 50px);
+        grid-template-rows: repeat(var(--rowcount), 50px);
+    }
+
+    .pegs{
+        height: 30px;
+        width: 30px;
+        margin: 1px;
+    }
+    
+    .pins{
+        height: 15px;
+        width: 15px;
+        margin: 10px;
+    }
+
+    .submit{
+        margin-top: 5px;
+    }
+}
+
 /* oud idee*/
 /* .colorOptions {
     display: grid;
@@ -166,17 +209,3 @@ body {
     margin-top: 10px;
     background-color: white;
 } */
-
-.submit {
-    width: 200px;
-    height: 50px;
-    border: 5px solid black;
-    margin: 0 auto;
-    margin-top: 50px;
-    font-family: sans-serif;
-    font-size: 50px;
-    text-align: center;
-    color:black;
-    background-color: lightgray;
-    opacity: 0.5;
-}
