@@ -19,7 +19,7 @@ function updatePegCount() {
         totalpegs = pegCount * currentrow;
         let oldPegs = document.getElementById("pegs");
         let gameboardstyles = window.getComputedStyle(document.querySelector(".gameboard"));
-document.querySelector(".gameboard").style.setProperty('--pegcount', pegCount);
+        document.querySelector(".gameboard").style.setProperty('--pegcount', pegCount);
         while (oldPegs.firstChild) {
             oldPegs.removeChild(oldPegs.firstChild);
         }
@@ -37,6 +37,7 @@ document.querySelector(".gameboard").style.setProperty('--pegcount', pegCount);
         }
         generateBoardSecret(secret.id);
         defineCurrentRow();
+        secretCode();
     }
 };
 
@@ -94,12 +95,14 @@ function defineCurrentRow() {
 };
 defineCurrentRow();
 
-for (let i = 0; i < pegCount; i++) {
-    let color = possibleColors[Math.floor(Math.random() * possibleColors.length)];
-    console.log(document.getElementById("secret" + i));
-    document.getElementById("secret" + i).classList.add(color);
-}
-
+function secretCode() {
+    for (let i = 0; i < pegCount; i++) {
+        let color = possibleColors[Math.floor(Math.random() * possibleColors.length)];
+        console.log(document.getElementById("secret" + i));
+        document.getElementById("secret" + i).classList.add(color);
+    };
+};
+secretCode();
 // const secrets = [0, 1, 2, 3].map(secret => {
 //     let color = possibleColors[Math.floor(Math.random() * possibleColors.length)];
 //     document
