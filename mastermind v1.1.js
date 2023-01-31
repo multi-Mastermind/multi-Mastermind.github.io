@@ -67,6 +67,9 @@ function generateBoard(ppname) {
     // console.warn("generate board done");
 };
 
+
+
+
 generateBoard(pegs.id);
 generateBoard(pins.id);
 
