@@ -56,7 +56,26 @@ body {
     }
 }
 
+#pegCount {
+ margin-top: 10px;
+ width: 3em;
+ height: 1em;
+position: relative;
+}
+input{
+    width: 3em;
+}
 
+#pegCountButton{
+    border:none;
+    padding: 0px;
+    color: grey;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1em;
+    width: auto; 
+}
 
 #pegs {
     display: grid;

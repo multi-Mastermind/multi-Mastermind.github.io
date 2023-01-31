@@ -1,16 +1,51 @@
 //mastermind v1.1
 // variabelen definitieren
 var currentColor = "white";
-var currentBoardPegs = ["peg4", "peg5", "peg6", "peg7"];
-var currentBoardPins = ["pin4", "pin5", "pin6", "pin7"];
+var currentBoardPegs = ["peg4", "peg5", "peg6", "peg7", "peg8"];
+var currentBoardPins = ["pin4", "pin5", "pin6", "pin7", "pin8"];
 // totaal aantal rows
-var currentrow = 12;
+let currentrow = 12;
 // aantal pegs in een row
-let pegCount = 4;
+let pegCount = parseInt(document.querySelector("#pegAmount").value);
+const PegcountButton = document.getElementById("pegCountButton");
+PegcountButton.addEventListener("click", updatePegCount);
+function updatePegCount() {
+    if (currentrow < 12) {
+        alert("you cannot change the peg count after starting")
+    }
+    else {
+        pegCount = parseInt(document.querySelector("#pegAmount").value);
+        console.log(parseInt(document.querySelector("#pegAmount").value));
+        totalpegs = pegCount * currentrow;
+        let oldPegs = document.getElementById("pegs");
+        let gameboardstyles = window.getComputedStyle(document.querySelector(".gameboard"));
+document.querySelector(".gameboard").style.setProperty('--pegcount', pegCount);
+        while (oldPegs.firstChild) {
+            oldPegs.removeChild(oldPegs.firstChild);
+        }
+        oldPegs.style.setProperty("--pegcount", pegCount);
+        generateBoard(pegs.id);
+        let oldPins = document.getElementById("pins");
+        while (oldPins.firstChild) {
+            oldPins.removeChild(oldPins.firstChild);
+        }
+        oldPins.style.setProperty("--pegcount", pegCount);
+        generateBoard(pins.id);
+        let oldSecrets = document.getElementById("secret");
+        while (oldSecrets.firstChild) {
+            oldSecrets.removeChild(oldSecrets.firstChild);
+        }
+        generateBoardSecret(secret.id);
+        defineCurrentRow();
+    }
+};
+
+console.log(pegCount);
 // console.log(document.querySelector(".gameboard"));
 let gameboardstyles = window.getComputedStyle(document.querySelector(".gameboard"));
 document.querySelector(".gameboard").style.setProperty('--pegcount', pegCount);
-const totalpegs = pegCount * currentrow;
+let totalpegs = pegCount * currentrow;
+console.log(totalpegs);
 const possibleColors = ["red", "green", "blue", "yellow", "magenta", "orange",];
 const totalColors = possibleColors.length;
 var hasWon = false;
@@ -32,11 +67,19 @@ function generateBoard(ppname) {
     // console.warn("generate board done");
 };
 
-
-
-
 generateBoard(pegs.id);
 generateBoard(pins.id);
+
+function generateBoardSecret(secret) {
+    for (let i = 0; i < pegCount; i++) {
+        let pp = document.createElement("div");
+        pp.id = secret + i
+        document.getElementById(secret).appendChild(pp);
+        currentBoardPins.push(pp);
+    };
+};
+
+generateBoardSecret(secret.id);
 
 function defineCurrentRow() {
     let currentp = document.querySelectorAll(".pegs");
@@ -48,17 +91,22 @@ function defineCurrentRow() {
 };
 defineCurrentRow();
 
-const secrets = [0, 1, 2, 3].map(secret => {
+for (let i = 0; i < pegCount; i++) {
     let color = possibleColors[Math.floor(Math.random() * possibleColors.length)];
-    document
-        .getElementById("secret" + secret)
-        .classList
-        //.add(secretCode[secret]));
-        .add(color);
-    return color;
-});
+    console.log(document.getElementById("secret" + i));
+    document.getElementById("secret" + i).classList.add(color);
+}
 
-console.log("Secret code is " + secrets);
+// const secrets = [0, 1, 2, 3].map(secret => {
+//     let color = possibleColors[Math.floor(Math.random() * possibleColors.length)];
+//     document
+//         .getElementById("secret" + secret)
+//         .classList
+//         //.add(secretCode[secret]));
+//         .add(color);
+//     return color;
+// });
+
 
 // veranderen van kleur van peg bij click
 document.addEventListener("click", event => {
@@ -73,14 +121,19 @@ document.addEventListener("click", event => {
 document.querySelector(".submit").addEventListener("click", event => {
     let currentPegs = document.querySelectorAll(".currentpegs");
     currentPegs.forEach(element => {
-        if(element.style.backgroundColor != "white"){
-            element.classList.add(true)
+        if (element.style.backgroundColor != "white") {
+            element.classList.add("Played")
         };
         // stop de backgroundColor in IF statement... 
         // als deze wit is niet
-        
+
     });
-    if (currentPegs[0].classList.contains(true) && currentPegs[1].classList.contains(true) && currentPegs[2].classList.contains(true) && currentPegs[3].classList.contains(true)) {
+
+    let allPegsChosen = true
+    for (let i = 0; i < pegCount; i++) {
+        allPegsChosen = allPegsChosen && currentPegs[i].classList.contains("Played");
+    }
+    if (allPegsChosen) {
         changePins();
         checkWin();
         changeRows();
@@ -110,20 +163,19 @@ function changeRows() {
             element.classList.add("current" + pp));
     }
     newrow(pegs.id);
-    console.log(pegs.id);
+    // console.log(pegs.id);
     newrow(pins.id);
 }
 
 //controle of de speler wint
-function checkWin() {
-    function checkPeg(pegnr) {
-        let secretpeg = document.getElementById("secret" + pegnr);
-        let currentBoardPegs = document.getElementsByClassName(currentpegs);
-        let peg = currentBoardPegs[pegnr];
-        console.log(pegnr, "pegcolor", peg.secretcolor, " in ", secretpeg.classList);
-        return secretpeg.classList.contains(peg.style.backgroundColor)
+function checkWin(pegnr) {
+    let AllPegsCorrect = true;
+    for (let i = 0; i < pegCount; i++) {
+        let secretpeg = document.getElementById("secret" + i);
+        let currentBoardPegs = document.querySelectorAll(".currentpegs");
+        AllPegsCorrect = AllPegsCorrect && secretpeg.classList.contains(currentBoardPegs[i].style.backgroundColor)
     }
-    if (checkPeg(0) && checkPeg(1) && checkPeg(2) && checkPeg(3)) {
+    if (AllPegsCorrect) {
         playerWins = true;
         console.log("player wins");
         alert("Secret code has been cracked. You win!!!");

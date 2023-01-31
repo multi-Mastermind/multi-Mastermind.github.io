@@ -17,6 +17,16 @@
     <div id="pins"></div>
 
   </div>
+
+  <div class="pegCount">
+    <label for="pegAmount">Number of pegs in the code:</label>
+    <input type="number" id="pegAmount" name="pegAmount" value="4" step="1" min="3" max="6">
+  </div>
+
+  <div id="pegCountButton">
+    <input type="button" value="confirm Pegs in code">
+  </div>
+
   <div id="instructions">
     Rules:
     guess the code by clicking on the pegs.
@@ -46,12 +56,8 @@
   </div>
   <div class="currentColor"></div> -->
 
-  <div class="secret">
-    <div id="secret0"></div>
-    <div id="secret1"></div>
-    <div id="secret2"></div>
-    <div id="secret3"></div>
-  </div>
+  <div id="secret"></div>
+
   <script src="mastermind v1.1.js"></script>
 </body>
 
