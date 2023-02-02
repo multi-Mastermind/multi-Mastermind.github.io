@@ -166,12 +166,17 @@ function changeRows() {
         Array.from(newpp).forEach(element =>
             element.classList.remove("current" + pp));
         Array.from(newpp).slice(rowsliceStart, rowsliceEnd).forEach(element =>
-            element.classList.add("current" + pp));
+            element.classList.add("current" + pp))
+        if (currentrow < 12) {
+            let instructionsText = document.getElementById("instructionsText");
+            instructionsText.style.display = "none";
+        }
     }
     newrow(pegs.id);
     // console.log(pegs.id);
     newrow(pins.id);
 }
+
 
 //controle of de speler wint
 function checkWin(pegnr) {

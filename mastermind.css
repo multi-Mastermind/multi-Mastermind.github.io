@@ -1,5 +1,6 @@
 body {
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
 }
 
@@ -9,13 +10,16 @@ body {
     display: flex;
     height: calc(var(--rowcount) * 60px);
     /* grid-template-rows: repeat(12, 2fr); */
-    width: calc(var(--pegcount) * 100px); 
+    width: calc(var(--pegcount) * 100px);
     grid-template-columns: repeat(4, 2fr) 4fr repeat(4, 1fr) 2fr;
     position: relative;
     z-index: 0;
     --pegcount: 4;
     --rowcount: 12;
+    order: 1;
+    margin: 0 10px;
 }
+
 /* 
 .board {
     display: grid;
@@ -26,58 +30,67 @@ body {
     z-index: 1;
 } */
 
-#pegNumber{
+#pegNumber {
     width: 3em;
     height: 1.5em;
 }
 
 #instructions {
+    height: 440px;
     width: 300px;
-    height: 520px;
     border: 5px solid black;
-    margin: 0 auto;
+    margin: 0;
     margin-top: 10px;
+    color: rgb(0, 0, 0);
+    background-color: lightgray;
+    opacity: 0.5;
+    z-index: 0;
+    order: 0;
+}
+
+#instructionsText {
     font-family: sans-serif;
     font-size: 30px;
     text-align: center;
-    color: rgb(0, 0, 0);
-    background-color: lightgray;
-    opacity: 0.5;    
-    z-index: 0;
 }
 
-@media only screen and (max-width: 500px){
-    #instructions{
+@media only screen and (max-width: 500px) {
+    #instructions {
         width: 90%;
         font-size: 1.5em;
         height: auto;
         align-items: flex-end;
     }
-    .gameboard{
-        clear:left;
+
+    .gameboard {
+        clear: left;
         position: relative;
     }
 }
 
-#pegCount {
- margin-top: 10px;
- width: 3em;
- height: 1em;
-position: relative;
+.pegCount {
+    font-family: sans-serif;
+    font-size: 20px;
+    margin-top: 10px;
+    width: auto;
+    height: 1em;
+    position: relative;
+    order: 2;
 }
-input{
+
+input {
     width: 3em;
 }
 
-#pegCountButton{
-    border:none;
+#pegCountButton {
+    border: none;
     padding: 0px;
     color: grey;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 1em;
-    width: auto; 
+    width: auto;
 }
 
 #pegs {
@@ -113,7 +126,6 @@ input{
     /* grid-area: 1/6/var(--rowcount)+1/10; */
     float: right;
     margin: 10px;
-
 }
 
 .pins {
@@ -145,34 +157,34 @@ input{
     font-family: sans-serif;
     font-size: 50px;
     text-align: center;
-    color:black;
+    color: black;
     background-color: lightgray;
     opacity: 0.5;
 }
 
-@media only screen and (max-height: 900px){
-    .gameboard{
+@media only screen and (max-height: 900px) {
+    .gameboard {
         height: calc(var(--rowcount)*50px);
     }
 
-    #pegs{
+    #pegs {
         grid-template-columns: repeat(var(--pegcount), 50px);
         grid-template-rows: repeat(var(--rowcount), 50px);
     }
 
-    .pegs{
+    .pegs {
         height: 30px;
         width: 30px;
         margin: 1px;
     }
-    
-    .pins{
+
+    .pins {
         height: 15px;
         width: 15px;
         margin: 10px;
     }
 
-    .submit{
+    .submit {
         margin-top: 5px;
     }
 }

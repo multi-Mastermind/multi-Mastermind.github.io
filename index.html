@@ -21,19 +21,20 @@
   <div class="pegCount">
     <label for="pegAmount">Number of pegs in the code:</label>
     <input type="number" id="pegAmount" name="pegAmount" value="4" step="1" min="3" max="6">
-  </div>
-
-  <div id="pegCountButton">
-    <input type="button" value="confirm Pegs in code">
+    <div id="pegCountButton">
+      <input type="button" value="confirm Pegs in code">
+    </div>
   </div>
 
   <div id="instructions">
-    Rules:
-    guess the code by clicking on the pegs.
-    Clicking on a peg cycles the color.
-    pins turn green when the color of the pegs is correct.
-    you start at the bottom and go up a row after each attempt.
-    All pegs need to have a color before you can submit.
+    <div id="instructionsText">
+      Rules:
+      guess the code by clicking on the pegs.
+      Clicking on a peg cycles the color.
+      pins turn green when the color of the pegs is correct.
+      you start at the bottom and go up a row after each attempt.
+      All pegs need to have a color before you can submit.
+    </div>
     <div class="submit">
       Submit
     </div>
