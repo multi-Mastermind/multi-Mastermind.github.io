@@ -1,24 +1,139 @@
-//mastermind v1.1
+// mastermind v1.1 by Jason The
+
+// ****************************************************************************
+// helper functions
+function generateBoard(ppname) {
+    for (let i = 0; i < totalpegs; i++) {
+        let pp = document.createElement("div");
+        pp.setAttribute("class", ppname + i);
+        pp.classList.add(ppname);
+        document.getElementById(ppname).appendChild(pp);
+        currentBoardPins.push(pp);
+        pp.style.backgroundColor = "white";
+    };
+    // console.warn("generate board done");
+};
+
+// ****************************************************************************
+// generatie van de div voor de secret code
+function generateBoardSecret(secret) {
+    for (let i = 0; i < pegCount; i++) {
+        let pp = document.createElement("div");
+        pp.id = secret + i
+        document.getElementById(secret).appendChild(pp);
+        currentBoardPins.push(pp);
+    };
+};
+// ****************************************************************************
+// definitiëring van huidige rij
+function defineCurrentRow() {
+    let currentp = document.querySelectorAll(".pegs");
+    Array.from(currentp).slice(-pegCount).forEach(Element =>
+        Element.classList.add(currentpegs));
+    let currentpin = document.querySelectorAll(".pins");
+    Array.from(currentpin).slice(-pegCount).forEach(Element =>
+        Element.classList.add(currentpins));
+};
+
+// ****************************************************************************
+// generatie van geheime code
+function secretCode() {
+    for (let i = 0; i < pegCount; i++) {
+        let color = possibleColors[Math.floor(Math.random() * possibleColors.length)];
+        console.log(document.getElementById("secret" + i));
+        document.getElementById("secret" + i).classList.add(color);
+    };
+};
+
+// ****************************************************************************
+// doorgaan naar nieuwe rij
+function changeRows() {
+    currentrow--;
+    const multiplier = pegCount;
+    if (currentrow <= 0) {
+        alert("player has lost");
+    }
+    const rowsliceStart = currentrow * multiplier - pegCount
+    const rowsliceEnd = multiplier * currentrow
+    function newrow(pp) {
+        let newpp = document.getElementsByClassName(pp);
+        console.log(newpp)
+        Array.from(newpp).forEach(element =>
+            element.classList.remove("current" + pp));
+        Array.from(newpp).slice(rowsliceStart, rowsliceEnd).forEach(element =>
+            element.classList.add("current" + pp))
+        if (currentrow < 12) {
+            let instructionsText = document.getElementById("instructionsText");
+            instructionsText.style.display = "none";
+        }
+    }
+    newrow(pegs.id);
+    // console.log(pegs.id);
+    newrow(pins.id);
+}
+
+
+// ****************************************************************************
+//controle of de speler wint
+function checkWin(pegnr) {
+    let AllPegsCorrect = true;
+    for (let i = 0; i < pegCount; i++) {
+        let secretpeg = document.getElementById("secret" + i);
+        let currentBoardPegs = document.querySelectorAll(".currentpegs");
+        AllPegsCorrect = AllPegsCorrect && secretpeg.classList.contains(currentBoardPegs[i].style.backgroundColor)
+    }
+    if (AllPegsCorrect) {
+        playerWins = true;
+        console.log("player wins");
+        alert("Secret code has been cracked. You win!!!");
+    } else {
+        alert("code is incorrect");
+    };
+};
+
+// ****************************************************************************
+// feedback naar speler via pins.
+function changePins(pinnr) {
+    function checkPeg(pegnr) {
+        let secretpeg = document.getElementById("secret" + pegnr);
+        let currentBoardPegs = document.getElementsByClassName(currentpegs);
+        let peg = currentBoardPegs[pegnr];
+        return secretpeg.classList.contains(peg.style.backgroundColor);
+    }
+    let currentBoardPins = document.getElementsByClassName(currentpins);
+    for (let i = 0; i < pegCount; i++) {
+        if (checkPeg(i) === true) {
+            let pin = currentBoardPins[i];
+            pin.classList.add('correctpin');
+            pin.style.backgroundColor = "green";
+            console.log("peg" + i + " is correct");
+        };
+    };
+};
+
+// ****************************************************************************
 // variabelen definitieren
 var currentColor = "white";
 var currentBoardPegs = ["peg4", "peg5", "peg6", "peg7", "peg8"];
 var currentBoardPins = ["pin4", "pin5", "pin6", "pin7", "pin8"];
 // totaal aantal rows
 let currentrow = 12;
+
+// ****************************************************************************
 // aantal pegs in een row
 let pegCount = parseInt(document.querySelector("#pegAmount").value);
 const PegcountButton = document.getElementById("pegCountButton");
 PegcountButton.addEventListener("click", updatePegCount);
+// functie geven aan peg number knop
 function updatePegCount() {
     if (currentrow < 12) {
         alert("you cannot change the peg count after starting")
     }
     else {
-        pegCount = parseInt(document.querySelector("#pegAmount").value);
-        console.log(parseInt(document.querySelector("#pegAmount").value));
+        pegCount = parseInt(document.querySelector("#pegAmount").value); // haal pegcount uit HTML
+        console.log(pegCount);
         totalpegs = pegCount * currentrow;
         let oldPegs = document.getElementById("pegs");
-        let gameboardstyles = window.getComputedStyle(document.querySelector(".gameboard"));
         document.querySelector(".gameboard").style.setProperty('--pegcount', pegCount);
         while (oldPegs.firstChild) {
             oldPegs.removeChild(oldPegs.firstChild);
@@ -40,9 +155,12 @@ function updatePegCount() {
         secretCode();
     }
 };
+// end all functions
+// ****************************************************************************
 
 console.log(pegCount);
-// console.log(document.querySelector(".gameboard"));
+// ****************************************************************************
+// generatie van de gameboard
 let gameboardstyles = window.getComputedStyle(document.querySelector(".gameboard"));
 document.querySelector(".gameboard").style.setProperty('--pegcount', pegCount);
 let totalpegs = pegCount * currentrow;
@@ -56,64 +174,13 @@ const currentpins = "currentpins";
 const currentpegs = "currentpegs";
 const correctpin = document.querySelector('.correctpin');
 
-function generateBoard(ppname) {
-    for (let i = 0; i < totalpegs; i++) {
-        let pp = document.createElement("div");
-        pp.setAttribute("class", ppname + i);
-        pp.classList.add(ppname);
-        document.getElementById(ppname).appendChild(pp);
-        currentBoardPins.push(pp);
-        pp.style.backgroundColor = "white";
-    };
-    // console.warn("generate board done");
-};
-
-
-
-
 generateBoard(pegs.id);
 generateBoard(pins.id);
-
-function generateBoardSecret(secret) {
-    for (let i = 0; i < pegCount; i++) {
-        let pp = document.createElement("div");
-        pp.id = secret + i
-        document.getElementById(secret).appendChild(pp);
-        currentBoardPins.push(pp);
-    };
-};
-
 generateBoardSecret(secret.id);
-
-function defineCurrentRow() {
-    let currentp = document.querySelectorAll(".pegs");
-    Array.from(currentp).slice(-pegCount).forEach(Element =>
-        Element.classList.add(currentpegs));
-    let currentpin = document.querySelectorAll(".pins");
-    Array.from(currentpin).slice(-pegCount).forEach(Element =>
-        Element.classList.add(currentpins));
-};
+secretCode();
 defineCurrentRow();
 
-function secretCode() {
-    for (let i = 0; i < pegCount; i++) {
-        let color = possibleColors[Math.floor(Math.random() * possibleColors.length)];
-        console.log(document.getElementById("secret" + i));
-        document.getElementById("secret" + i).classList.add(color);
-    };
-};
-secretCode();
-// const secrets = [0, 1, 2, 3].map(secret => {
-//     let color = possibleColors[Math.floor(Math.random() * possibleColors.length)];
-//     document
-//         .getElementById("secret" + secret)
-//         .classList
-//         //.add(secretCode[secret]));
-//         .add(color);
-//     return color;
-// });
-
-
+// ****************************************************************************
 // veranderen van kleur van peg bij click
 document.addEventListener("click", event => {
     let target = event.target;
@@ -123,6 +190,7 @@ document.addEventListener("click", event => {
     };
 });
 
+// ****************************************************************************
 // functioneren van submit knop
 document.querySelector(".submit").addEventListener("click", event => {
     let currentPegs = document.querySelectorAll(".currentpegs");
@@ -151,65 +219,8 @@ document.querySelector(".submit").addEventListener("click", event => {
     }
 });
 
-// doorgaan naar nieuwe rij
-function changeRows() {
-    currentrow--;
-    const multiplier = pegCount;
-    if (currentrow <= 0) {
-        alert("player has lost");
-    }
-    const rowsliceStart = currentrow * multiplier - pegCount
-    const rowsliceEnd = multiplier * currentrow
-    function newrow(pp) {
-        let newpp = document.getElementsByClassName(pp);
-        console.log(newpp)
-        Array.from(newpp).forEach(element =>
-            element.classList.remove("current" + pp));
-        Array.from(newpp).slice(rowsliceStart, rowsliceEnd).forEach(element =>
-            element.classList.add("current" + pp))
-        if (currentrow < 12) {
-            let instructionsText = document.getElementById("instructionsText");
-            instructionsText.style.display = "none";
-        }
-    }
-    newrow(pegs.id);
-    // console.log(pegs.id);
-    newrow(pins.id);
-}
-
-
-//controle of de speler wint
-function checkWin(pegnr) {
-    let AllPegsCorrect = true;
-    for (let i = 0; i < pegCount; i++) {
-        let secretpeg = document.getElementById("secret" + i);
-        let currentBoardPegs = document.querySelectorAll(".currentpegs");
-        AllPegsCorrect = AllPegsCorrect && secretpeg.classList.contains(currentBoardPegs[i].style.backgroundColor)
-    }
-    if (AllPegsCorrect) {
-        playerWins = true;
-        console.log("player wins");
-        alert("Secret code has been cracked. You win!!!");
-    } else {
-        alert("code is incorrect");
-    };
-};
-
-// feedback naar speler via pins.
-function changePins(pinnr) {
-    function checkPeg(pegnr) {
-        let secretpeg = document.getElementById("secret" + pegnr);
-        let currentBoardPegs = document.getElementsByClassName(currentpegs);
-        let peg = currentBoardPegs[pegnr];
-        return secretpeg.classList.contains(peg.style.backgroundColor);
-    }
-    let currentBoardPins = document.getElementsByClassName(currentpins);
-    for (let i = 0; i < pegCount; i++) {
-        if (checkPeg(i) === true) {
-            let pin = currentBoardPins[i];
-            pin.classList.add('correctpin');
-            pin.style.backgroundColor = "green";
-            console.log("peg" + i + " is correct");
-        };
-    };
-};
+// ****************************************************************************
+// functie resetknop
+document.querySelector("#Reset").addEventListener("click", event => {
+updatePegCount();
+});

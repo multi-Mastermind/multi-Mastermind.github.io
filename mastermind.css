@@ -36,7 +36,7 @@ body {
 }
 
 #instructions {
-    height: 440px;
+    height: 580px;
     width: 300px;
     border: 5px solid black;
     margin: 0;
@@ -86,7 +86,7 @@ input {
     border: 1px solid grey;
     padding: 0px;
     color: grey;
-    background-color: lightgrey;
+    background-color: rgb(228, 220, 223);
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -98,7 +98,6 @@ input {
     display: grid;
     grid-template-columns: repeat(var(--pegcount), 60px);
     grid-template-rows: repeat(var(--rowcount), 60px);
-    /* grid-area: 1/1/var(--rowcount)+1/5; */
 }
 
 .pegs {
@@ -124,7 +123,6 @@ input {
     display: grid;
     grid-template-columns: repeat(var(--pegcount), 20px);
     grid-template-rows: repeat(20px auto);
-    /* grid-area: 1/6/var(--rowcount)+1/10; */
     float: right;
     margin: 10px;
 }
@@ -162,7 +160,20 @@ input {
     background-color: lightgray;
     opacity: 0.5;
 }
-
+#Reset {
+    width: 200px;
+    height: 50px;
+    border: 5px solid black;
+    margin: 0 auto;
+    margin-top: 50px;
+    font-family: sans-serif;
+    font-size: 50px;
+    text-align: center;
+    color: black;
+    background-color: lightgray;
+    opacity: 0.5;
+    order: 2;
+}
 @media only screen and (max-height: 900px) {
     .gameboard {
         height: calc(var(--rowcount)*50px);
@@ -189,55 +200,3 @@ input {
         margin-top: 5px;
     }
 }
-
-/* oud idee*/
-/* .colorOptions {
-    display: grid;
-    grid-template-columns: repeat(2, 100px);
-    grid-template-rows: repeat(3, 100px);
-    width: 200px;
-    height: 300px;
-    border: 5px solid black;
-    margin: 0 auto;
-    margin-top: 10px; 
-} */
-
-/* .blue {
-    background-color: blue;
-    z-index: 1;
-}
-
-.red {
-    background-color: red;
-    z-index: 1;
-}
-
-.yellow {
-    background-color: yellow;
-    z-index: 1;
-}
-
-.green {
-    background-color: green;
-    z-index: 1;
-}
-
-.magenta {
-    background-color: magenta;
-    z-index: 1;
-}
-
-.orange {
-    background-color: orange;
-    z-index: 1;
-} */
-
-/* oud idee te moeilijk om te implementeren */
-/* .currentColor {
-    width: 200px;
-    height: 50px;
-    border: 5px solid black;
-    margin: 0 auto;
-    margin-top: 10px;
-    background-color: white;
-} */
