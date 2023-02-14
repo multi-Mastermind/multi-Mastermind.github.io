@@ -149,7 +149,7 @@ function updatePegCount() {
         let oldSecrets = document.getElementById("secret");
         while (oldSecrets.firstChild) {
             oldSecrets.removeChild(oldSecrets.firstChild);
-        }
+        };
         generateBoardSecret(secret.id);
         defineCurrentRow();
         secretCode();
@@ -222,5 +222,6 @@ document.querySelector(".submit").addEventListener("click", event => {
 // ****************************************************************************
 // functie resetknop
 document.querySelector("#Reset").addEventListener("click", event => {
-updatePegCount();
+    currentrow = 12;
+    updatePegCount();
 });
