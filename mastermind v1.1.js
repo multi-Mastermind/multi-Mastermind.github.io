@@ -224,4 +224,6 @@ document.querySelector(".submit").addEventListener("click", event => {
 document.querySelector("#Reset").addEventListener("click", event => {
     currentrow = 12;
     updatePegCount();
+    let instructionsText = document.getElementById("instructionsText");
+    instructionsText.style.display = "block";
 });
