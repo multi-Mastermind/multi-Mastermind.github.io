@@ -57,7 +57,6 @@ function changeRows() {
     const rowsliceEnd = multiplier * currentrow
     function newrow(pp) {
         let newpp = document.getElementsByClassName(pp);
-        console.log(newpp)
         Array.from(newpp).forEach(element =>
             element.classList.remove("current" + pp));
         Array.from(newpp).slice(rowsliceStart, rowsliceEnd).forEach(element =>
@@ -111,6 +110,47 @@ function changePins(pinnr) {
     };
 };
 
+function PinsWrongLocation() {
+    let secretparent = document.getElementById("secret");
+    let secretpegs = Array.from(secretparent.children);
+    let secretArray = secretpegs.map(el => el.className);
+    console.log(secretArray);
+    let currentPegs = document.querySelectorAll(".currentpegs");
+    let CurrentArray = Array.from(currentPegs);
+    let currentColors = CurrentArray.map(el => el.style.background);
+    let currentBoardPins = document.getElementsByClassName(currentpins);
+    for (let i = 0; i < pegCount; i++) {
+        let containsCurrentColor = secretArray.includes(currentColors[i]);
+        if (containsCurrentColor) {
+            let pin = currentBoardPins[i];
+            console.log(pin);
+            pin.classList.add('colorcorrect');
+            pin.style.backgroundColor = "red";
+            console.log("peg" + i + "'s colour is in code");
+        }
+    }
+
+    return
+    let currentCode = document.querySelectorAll(".currentpegs");
+    let CodeArray = Array.from(currentCode);
+    let currentColorNames = CodeArray.map(el => el.style.background);
+    console.log("Current colors are:" + currentColorNames);
+    for (let i = 0; i < pegCount; i++) {
+        let secretpeg = document.getElementById("secret" + i);
+        let ContainsCorrectColor = secretpeg.classList.contains(currentColorNames[i]);
+        //let isSameColor = currentColorNames.includes(secretpeg);
+        console.log(currentColorNames, secretpeg, ContainsCorrectColor);
+        if (ContainsCorrectColor) {
+            let pin = currentBoardPins[i];
+            pin.classList.add('colourcorrect');
+            pin.style.backgroundColor = "red";
+            console.log("peg" + i + "'s colour is in code");
+        };
+
+    };
+};
+
+
 // ****************************************************************************
 // variabelen definitieren
 var currentColor = "white";
@@ -153,6 +193,7 @@ function updatePegCount() {
         generateBoardSecret(secret.id);
         defineCurrentRow();
         secretCode();
+        PinsWrongLocation();
     }
 };
 // end all functions
@@ -169,7 +210,7 @@ const possibleColors = ["red", "green", "blue", "yellow", "magenta", "orange",];
 const totalColors = possibleColors.length;
 var hasWon = false;
 var Pegindex = 0;
-var playerWins = false;
+let playerWins = false;
 const currentpins = "currentpins";
 const currentpegs = "currentpegs";
 const correctpin = document.querySelector('.correctpin');
@@ -187,6 +228,8 @@ document.addEventListener("click", event => {
     let isValidPeg = target.classList.contains(currentpegs);
     if (isValidPeg && playerWins === false) {
         target.style.background = possibleColors[++Pegindex % totalColors];
+        target.classList.remove("red", "green", "blue", "yellow", "magenta", "orange");
+        target.classList.add(target.style.background);
     };
 });
 
@@ -208,9 +251,11 @@ document.querySelector(".submit").addEventListener("click", event => {
         allPegsChosen = allPegsChosen && currentPegs[i].classList.contains("Played");
     }
     if (allPegsChosen) {
+        PinsWrongLocation();
         changePins();
         checkWin();
         changeRows();
+
         // checkLoss();
         console.log("code submitted");
     }
@@ -226,4 +271,5 @@ document.querySelector("#Reset").addEventListener("click", event => {
     updatePegCount();
     let instructionsText = document.getElementById("instructionsText");
     instructionsText.style.display = "block";
+    playerWins = false
 });
