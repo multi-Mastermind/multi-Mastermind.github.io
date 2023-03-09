@@ -166,11 +166,14 @@ const PegcountButton = document.getElementById("pegCountButton");
 PegcountButton.addEventListener("click", updatePegCount);
 // functie geven aan peg number knop
 function updatePegCount() {
-    if (currentrow < 12) {
+    pegCount = parseInt(document.querySelector("#pegAmount").value); // haal pegcount uit HTML
+    if (pegCount < 3 || pegCount > 6) {
+        alert("pegcount number is invalid. Chosse between 3 to 6")
+    }
+    else if (currentrow < 12) {
         alert("you cannot change the peg count after starting")
     }
     else {
-        pegCount = parseInt(document.querySelector("#pegAmount").value); // haal pegcount uit HTML
         console.log(pegCount);
         totalpegs = pegCount * currentrow;
         let oldPegs = document.getElementById("pegs");
