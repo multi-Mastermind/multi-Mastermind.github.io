@@ -9,41 +9,41 @@
 </head>
 
 <body>
-  <div class="gameboard">
-    <!-- <div class="board"> -->
-    <div id="pegs"></div>
-    <!-- </div>
+  <div id="flex-box">
+    <div class="gameboard">
+      <!-- <div class="board"> -->
+      <div id="pegs"></div>
+      <!-- </div>
     <div class="pinboard"> -->
-    <div id="pins"></div>
+      <div id="pins"></div>
 
-  </div>
-
-  <div class="pegCount">
-    <label for="pegAmount">Number of pegs in the code:</label>
-    <input type="number" id="pegAmount" name="pegAmount" value="4" step="1" min="3" max="6">
-    <div id="pegCountButton">
-      confirm Peg number in code
     </div>
-    <div id="reset">Reset</div>
-  </div>
 
-
-
-  <div id="instructions">
-    <div id="instructionsText">
-      Rules:
-      guess the code by clicking on the pegs(large circles).
-      Clicking on a peg cycles the color.
-      there are six(6) colors.
-      pins(small circles) turn green when the color and the location of the pegs is correct.
-      If the color is correct but the location is wrong the pin will turn red.
-      you start at the bottom and go up a row after each attempt.
-      you have twelve(12) attempts.
-      All pegs need to have a color before you can submit.
+    <div class="pegCount">
+      <label for="pegAmount">Number of pegs in the code:</label>
+      <input type="number" id="pegAmount" name="pegAmount" value="4" step="1" min="3" max="6">
+      <div id="pegCountButton">
+        confirm Peg number in code
+      </div>
+      <div id="reset">Reset</div>
     </div>
-    <div class="submit">
-      Submit
+
+    <div id="instructions">
+      <div id="instructionsText">
+        Rules:
+        guess the code by clicking on the pegs(large circles).
+        Clicking on a peg cycles the color.
+        there are six(6) colors.
+        pins(small circles) turn green when the color and the location of the pegs is correct.
+        If the color is correct but the location is wrong the pin will turn red.
+        you start at the bottom and go up a row after each attempt.
+        you have twelve(12) attempts.
+        All pegs need to have a color before you can submit.
+      </div>
     </div>
+
+    <div class="submit"> Submit </div>
+    
   </div>
 
   <div id="secret"></div>
