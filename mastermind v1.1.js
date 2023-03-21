@@ -168,7 +168,7 @@ PegcountButton.addEventListener("click", updatePegCount);
 function updatePegCount() {
     pegCount = parseInt(document.querySelector("#pegAmount").value); // haal pegcount uit HTML
     if (pegCount < 3 || pegCount > 6 || pegCount === 0 || pegCount === "") {
-        alert("pegcount number is invalid. Chosse between 3 to 6")
+        alert("pegcount number is invalid. Choose between 3 to 6")
     }
     else if (currentrow < 12) {
         alert("you cannot change the peg count after starting")
