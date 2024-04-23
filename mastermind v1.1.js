@@ -1,5 +1,5 @@
 // mastermind v1.1 by Jason The
-
+// test
 // ****************************************************************************
 // helper functions
 function generateBoard(ppname) {
